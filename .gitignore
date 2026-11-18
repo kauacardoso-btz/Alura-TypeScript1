@@ -1,0 +1,13 @@
+# Dependências
+node_modules/
+
+# JavaScript gerado pelo TypeScript
+dist/js/
+
+# Logs
+*.log
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
