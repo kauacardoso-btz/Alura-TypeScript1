@@ -1,5 +1,5 @@
 import { conta, elementoSaldo } from "./saldo-component.js";
-import { TipoTransacao } from "./tipo-transacao.js";
+import { TipoTransacao } from "./tipoTransacao.js";
 import { Transacao } from "./transacao.js";
 import { formatarMoeda } from "./formatters.js";
 
@@ -36,6 +36,5 @@ elementoFormulario.addEventListener("submit", function(event) {
         data: data
     };
 
-    console.log(novaTransacao);
     elementoFormulario.reset();
 });
