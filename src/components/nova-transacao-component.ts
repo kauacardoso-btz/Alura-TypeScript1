@@ -1,4 +1,4 @@
-import { conta } from "../main.js";
+import { contaPrincipal } from "../conta.js";
 import { TipoTransacao } from "../types/TipoTransacao.js";
 import { Transacao } from "../types/Transacao.js";
 import { atualizarSaldo } from "./saldo-component.js";
@@ -25,7 +25,7 @@ elementoFormulario.addEventListener("submit", function (event) {
         data: data
     };
 
-    conta.registrarTransacao(novaTransacao)
+    contaPrincipal.registrarTransacao(novaTransacao)
     atualizarSaldo()
     elementoFormulario.reset();
 });

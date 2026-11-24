@@ -8,7 +8,7 @@ export class Conta {
 
     constructor(saldoInicial: number) {
         this.saldo = saldoInicial
-        this.dataAcesso = new Date()
+        this.dataAcesso = new Date(Date.now())
         this.historicoTransacoes = []
     }
 
