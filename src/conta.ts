@@ -17,7 +17,7 @@ export class Conta {
         return this.saldo
     }
 
-    public obterSaldoFormatado(): string {
-        return this.saldo.toLocaleString('pt-br', { currency: 'BRL', style: 'currency' })
-    }
+    // public obterSaldoFormatado(): string {
+    //     return this.saldo.toLocaleString('pt-br', { currency: 'BRL', style: 'currency' })
+    // }
 }
