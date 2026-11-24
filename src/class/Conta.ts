@@ -2,12 +2,12 @@ import { TipoTransacao } from "../types/TipoTransacao.js"
 import { Transacao } from "../types/Transacao.js"
 
 export class Conta {
-    private saldo: number
+    private saldo: number 
     private dataAcesso: Date
     private historicoTransacoes: Transacao[]
 
-    constructor(saldoInicial: number) {
-        this.saldo = saldoInicial
+    constructor() {
+        this.saldo = 0
         this.dataAcesso = new Date(Date.now())
         this.historicoTransacoes = []
     }
@@ -48,7 +48,12 @@ export class Conta {
         } else {
             throw new Error("Tipo de Transação é inválido!");
         }
-
+        
         this.historicoTransacoes.push(novaTransacao)
+        this.salvar()
+    }
+
+    private salvar(): void {
+        localStorage.setItem("Conta", JSON.stringify(this));
     }
 }
