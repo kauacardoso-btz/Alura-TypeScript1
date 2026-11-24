@@ -1,15 +1,16 @@
+import type { GrupoTransacao } from "../types/GrupoTransacao.js"
 import { TipoTransacao } from "../types/TipoTransacao.js"
 import { Transacao } from "../types/Transacao.js"
 
 export class Conta {
-    private saldo: number 
+    private saldo: number
     private dataAcesso: Date
-    private historicoTransacoes: Transacao[]
+    private transacoes: Transacao[]
 
     constructor() {
         this.saldo = 0
         this.dataAcesso = new Date(Date.now())
-        this.historicoTransacoes = []
+        this.transacoes = []
     }
 
     public depositar(deposito: number) {
@@ -39,6 +40,33 @@ export class Conta {
         return this.dataAcesso
     }
 
+    public getTransacoes(): Transacao[] {
+        return this.transacoes
+    }
+
+    public getGrupoTransacoes(): GrupoTransacao[] {
+        const gruposTransacoes: GrupoTransacao[] = []
+        const listaTransacoes: Transacao[] = structuredClone(this.transacoes)
+        const transacaoOrdenadas: Transacao[] = listaTransacoes.sort((t1, t2) => t2.data.getTime() - t1.data.getTime())
+
+        let labelAtualGrupoTransacao: string = ''
+
+        for (let transacao of transacaoOrdenadas) {
+            let labelGrupoTransacao: string = transacao.data.toLocaleDateString('pt-br', { month: 'long', year: 'numeric' })
+            if (labelAtualGrupoTransacao != labelGrupoTransacao) {
+                labelAtualGrupoTransacao = labelGrupoTransacao
+                gruposTransacoes.push({
+                    label: labelGrupoTransacao,
+                    transacoes: []
+                })
+            }
+
+            gruposTransacoes.at(-1)?.transacoes.push(transacao)
+        }
+
+        return gruposTransacoes
+    }
+
     public registrarTransacao(novaTransacao: Transacao): void {
         if (novaTransacao.tipoTransacao == TipoTransacao.DEPOSITO) {
             this.depositar(novaTransacao.valor);
@@ -48,9 +76,10 @@ export class Conta {
         } else {
             throw new Error("Tipo de Transação é inválido!");
         }
-        
-        this.historicoTransacoes.push(novaTransacao)
+
+        this.transacoes.push(novaTransacao)
         this.salvar()
+        console.log(this.getGrupoTransacoes());
     }
 
     private salvar(): void {
