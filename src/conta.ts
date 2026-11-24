@@ -1,5 +1,5 @@
 export class Conta {
-    private saldo: number = 3000
+    private saldo: number
 
     constructor(saldoInicial: number) {
         this.saldo = saldoInicial
@@ -15,5 +15,9 @@ export class Conta {
 
     public obterSaldo(): number {
         return this.saldo
+    }
+
+    public obterSaldoFormatado(): string {
+        return this.saldo.toLocaleString('pt-br', { currency: 'BRL', style: 'currency' })
     }
 }
