@@ -1,4 +1,4 @@
-import { TipoTransacao } from "./tipoTransacao"
+import { TipoTransacao } from "./TipoTransacao"
 
 export type Transacao = {
    tipoTransacao: TipoTransacao,

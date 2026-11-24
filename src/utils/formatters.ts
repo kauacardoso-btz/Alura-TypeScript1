@@ -1,4 +1,4 @@
-import { FormatoData } from "./formatoData"
+import { FormatoData } from "./types/FormatoData.js"
 
 export function formatarMoeda(valor: number): string {
     return valor.toLocaleString('pt-br', { currency: 'BRL', style: 'currency' })
