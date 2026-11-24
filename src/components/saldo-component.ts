@@ -1,6 +1,6 @@
-import { Conta } from "./conta.js";
-import { FormatoData } from "./formatoData.js";
-import { formatarData, formatarMoeda } from "./formatters.js";
+import { Conta } from "../class/Conta.js";
+import { FormatoData } from "../types/FormatoData.js";
+import { formatarData, formatarMoeda } from "../utils/formatters.js";
 
 export let conta: Conta = new Conta(3000)
 
