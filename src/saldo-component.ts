@@ -1,6 +1,8 @@
-let saldo: number = 3000
+import { Conta } from "./conta.js";
 
-const elementoSaldo = document.querySelector(".saldo-valor .valor") as HTMLElement;
+export let conta: Conta = new Conta(3000)
+
+export const elementoSaldo = document.querySelector(".saldo-valor .valor") as HTMLElement;
 if (elementoSaldo != null) {
-    elementoSaldo.textContent = saldo.toString();
+    elementoSaldo.textContent = conta.obterSaldo().toString();
 }

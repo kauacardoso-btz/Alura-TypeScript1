@@ -1,3 +1,7 @@
+import { conta, elementoSaldo } from "./saldo-component.js";
+import { TipoTransacao } from "./tipo-transacao.js";
+import { Transacao } from "./transacao.js";
+
 const elementoFormulario = document.querySelector(".block-nova-transacao form") as HTMLFormElement;
 elementoFormulario.addEventListener("submit", function(event) {
     event.preventDefault();
@@ -10,22 +14,22 @@ elementoFormulario.addEventListener("submit", function(event) {
     const inputValor = elementoFormulario.querySelector("#valor") as HTMLInputElement;
     const inputData = elementoFormulario.querySelector("#data") as HTMLInputElement;
 
-    let tipoTransacao: string = inputTipoTransacao.value;
+    let tipoTransacao: TipoTransacao = inputTipoTransacao.value as TipoTransacao;
     let valor: number = inputValor.valueAsNumber;
     let data: Date = new Date(inputData.value);
 
-    if (tipoTransacao == "Depósito") {
-        saldo += valor;
-    } else if (tipoTransacao == "Transferência" || tipoTransacao == "Pagamento de Boleto") {
-        saldo -= valor;
+    if (tipoTransacao == TipoTransacao.DEPOSITO) {
+        conta.depositar(valor);
+    } else if (tipoTransacao == TipoTransacao.TRANSFERENCIA || tipoTransacao == TipoTransacao.PAGAMENTO_BOLETO) {
+        conta.debitar(valor)
     } else {
         alert("Tipo de Transação é inválido!");
         return;
     }
 
-    elementoSaldo.textContent = saldo.toString();
+    elementoSaldo.textContent = conta.obterSaldo().toString();
 
-    const novaTransacao = {
+    const novaTransacao: Transacao = {
         tipoTransacao: tipoTransacao,
         valor: valor,
         data: data
