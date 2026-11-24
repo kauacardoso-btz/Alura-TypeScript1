@@ -13,10 +13,21 @@ export class Conta {
     }
 
     public depositar(deposito: number) {
+        if (deposito <= 0) {
+            throw new Error('O valor a ser depositado deve ser maior que zero!')
+        }
+
         this.saldo += deposito
     }
 
     public debitar(debito: number) {
+        if (debito <= 0) {
+            throw new Error('O valor a ser debitado deve ser maior que zero!')
+        }
+        if (debito > this.saldo) {
+            throw new Error('Saldo insuficiente!')
+        }
+
         this.saldo -= debito
     }
 
@@ -31,8 +42,8 @@ export class Conta {
     public registrarTransacao(novaTransacao: Transacao): void {
         if (novaTransacao.tipoTransacao == TipoTransacao.DEPOSITO) {
             this.depositar(novaTransacao.valor);
-        } else if (novaTransacao.tipoTransacao == TipoTransacao.TRANSFERENCIA 
-                || novaTransacao.tipoTransacao == TipoTransacao.PAGAMENTO_BOLETO) {
+        } else if (novaTransacao.tipoTransacao == TipoTransacao.TRANSFERENCIA
+            || novaTransacao.tipoTransacao == TipoTransacao.PAGAMENTO_BOLETO) {
             this.debitar(novaTransacao.valor)
         } else {
             throw new Error("Tipo de Transação é inválido!");
